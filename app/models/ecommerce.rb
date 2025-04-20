@@ -1,0 +1,2 @@
+class Ecommerce < ApplicationRecord
+end
