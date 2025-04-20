@@ -10,10 +10,86 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_20_132842) do
-  create_table "ecommerces", force: :cascade do |t|
-    t.string "name"
+ActiveRecord::Schema[8.0].define(version: 2025_04_20_171917) do
+  create_table "categories", force: :cascade do |t|
+    t.string "category_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "product_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "status"
+    t.decimal "total_amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.string "payment_method"
+    t.decimal "amount"
+    t.string "payment_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payments_on_order_id"
+  end
+
+  create_table "product_prices", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.decimal "price"
+    t.date "effective_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_prices_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "product_name"
+    t.text "description"
+    t.integer "stock_quantity"
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_products_on_category_id"
+  end
+
+  create_table "stores", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "logo_url"
+    t.string "contact_email"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "street"
+    t.string "city"
+    t.string "postal_code"
+    t.string "province"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "users"
+  add_foreign_key "payments", "orders"
+  add_foreign_key "product_prices", "products"
+  add_foreign_key "products", "categories"
 end
