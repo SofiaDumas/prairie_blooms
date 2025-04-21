@@ -23,6 +23,38 @@
   </head>
 
   <body>
+    <!-- Header -->
+    <header>
+      <h1>The Prairie Blooms</h1>
+      <h2 style="color: green"> Your go-to shop for garden plants and supplies. All you need is here!</h2>
+    </header>
+    <!-- Main Content -->
     <%= yield %>
+    <!-- Footer -->
+      <footer class="footer">
+        <!-- 🌐 First Row: Navigation Links -->
+        <nav class="nav-links">
+          <ul class="nav-row">
+            <li><a href="/">Home</a></li>
+            <li><a href="/forum">About</a></li>
+            <li><a href="/terms">Terms</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </nav>
+
+        <!-- 📱 Second Row: Social Media -->
+        <nav class="social-media">
+          <ul class="nav-row">
+            <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+            <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+            <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+            <li><a href="https://pinterest.com" target="_blank">Pinterest</a></li>
+          </ul>
+        </nav>
+
+        <!-- 📝 Footer Info -->
+        <p class="footer1">Copyright &copy; <%= Date.today.year %> The Prairie Blooms - Author: Maria Sofia Dumas</p>
+        <p class="footer2">504 Main Street, Winnipeg, Manitoba</p>
+      </footer>
   </body>
 </html>
