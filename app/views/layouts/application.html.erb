@@ -19,7 +19,7 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_importmap_tags "application" %>
   </head>
 
   <body>
@@ -28,33 +28,43 @@
       <h1>The Prairie Blooms</h1>
       <h2 style="color: green"> Your go-to shop for garden plants and supplies. All you need is here!</h2>
     </header>
+    <% if user_signed_in? %>
+      <% if current_user.admin? %>
+        <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn btn-warning" %>
+      <% end %>
+      <p>Welcome, <%= current_user.name %>!</p>
+      <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
+      <%= link_to "Log In", new_user_session_path, class: "btn btn-success" %>
+    <% end %>
     <!-- Main Content -->
     <%= yield %>
     <!-- Footer -->
-      <footer class="footer">
-        <!-- 🌐 First Row: Navigation Links -->
-        <nav class="nav-links">
-          <ul class="nav-row">
-            <li><a href="/">Home</a></li>
-            <li><a href="/forum">About</a></li>
-            <li><a href="/terms">Terms</a></li>
-            <li><a href="/contact">Contact Us</a></li>
-          </ul>
-        </nav>
+    <footer class="footer">
+      <!-- First Row: Navigation Links -->
+      <nav class="nav-links">
+        <ul class="nav-row">
+          <li><%= link_to "Home", root_path%></li>
+          <li><%= link_to "About", about_path%></li>
+          <li><a href="/terms">Terms</a></li>
+          <li><%= link_to "Contact Us", contact_path%></li>
+        </ul>
+      </nav>
 
-        <!-- 📱 Second Row: Social Media -->
-        <nav class="social-media">
-          <ul class="nav-row">
-            <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
-            <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
-            <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
-            <li><a href="https://pinterest.com" target="_blank">Pinterest</a></li>
-          </ul>
-        </nav>
+      <!-- Second Row: Social Media -->
+      <nav class="social-media">
+        <ul class="nav-row">
+          <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+          <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+          <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+          <li><a href="https://pinterest.com" target="_blank">Pinterest</a></li>
+        </ul>
+      </nav>
 
-        <!-- 📝 Footer Info -->
-        <p class="footer1">Copyright &copy; <%= Date.today.year %> The Prairie Blooms - Author: Maria Sofia Dumas</p>
-        <p class="footer2">504 Main Street, Winnipeg, Manitoba</p>
-      </footer>
+      <!-- Footer Info -->
+      <p class="footer1">Copyright &copy; <%= Date.today.year %> The Prairie Blooms - Author: Maria Sofia Dumas</p>
+      <p class="footer2">504 Main Street, Winnipeg, Manitoba</p>
+    </footer>
   </body>
 </html>

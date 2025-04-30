@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[ show edit update destroy ]
+  before_action :set_category, only: [ :show, :edit, :update, :destroy ]
 
   # GET /categories or /categories.json
   def index
@@ -8,6 +8,8 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1 or /categories/1.json
   def show
+    @category = Category.find(params[:id])
+    @products = @category.products
   end
 
   # GET /categories/new
@@ -65,6 +67,6 @@ class CategoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def category_params
-      params.expect(category: [ :category_name ])
+      params.require(category: [ :category_name ])
     end
 end

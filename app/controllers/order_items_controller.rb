@@ -1,5 +1,5 @@
 class OrderItemsController < ApplicationController
-  before_action :set_order_item, only: %i[ show edit update destroy ]
+  before_action :set_order_item, only: [ :show, :edit, :update, :destroy ]
 
   # GET /order_items or /order_items.json
   def index

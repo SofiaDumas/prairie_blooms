@@ -1,12 +1,12 @@
 require "test_helper"
 
-class StoresControllerTest < ActionDispatch::IntegrationTest
+class StoreControllerTest < ActionDispatch::IntegrationTest
   setup do
     @store = stores(:one)
   end
 
   test "should get index" do
-    get stores_url
+    get store_url
     assert_response :success
   end
 
@@ -17,7 +17,7 @@ class StoresControllerTest < ActionDispatch::IntegrationTest
 
   test "should create store" do
     assert_difference("Store.count") do
-      post stores_url, params: { store: { contact_email: @store.contact_email, description: @store.description, logo_url: @store.logo_url, name: @store.name, phone: @store.phone } }
+      post store_url, params: { store: { contact_email: @store.contact_email, description: @store.description, logo_url: @store.logo_url, name: @store.name, phone: @store.phone } }
     end
 
     assert_redirected_to store_url(Store.last)
@@ -43,6 +43,6 @@ class StoresControllerTest < ActionDispatch::IntegrationTest
       delete store_url(@store)
     end
 
-    assert_redirected_to stores_url
+    assert_redirected_to store_url
   end
 end
