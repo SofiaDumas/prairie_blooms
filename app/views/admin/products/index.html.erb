@@ -17,6 +17,7 @@
       <tr>
         <td><%= product.product_name%></td>
         <td><%= product.description%></td>
+        <td><%= product.product_prices.order(effective_date: :desc).first&.price || "N/A" %></td>
         <td><%= product.stock_quantity%></td>
         <td>
           <%= link_to "Edit", edit_admin_product_path(product), class: "btn btn-warning" %>
