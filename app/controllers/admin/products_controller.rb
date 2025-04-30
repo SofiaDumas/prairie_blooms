@@ -3,7 +3,13 @@ class Admin::ProductsController < ApplicationController
   before_action :check_admin
   before_action :set_product, only: [ :show, :edit, :update, :destroy ]
   def index
-    @products = Product.page(params[:page]).per(20)
+    @products = Product.all
+
+    @products = @products.where(on_sale: true) if params[:on_sale] == "true"
+    @products = @products.where(new: true) if params[:new] == "true"
+    @products = @products.order(updated_at: :desc) if params[:recently_updated] == "true"
+
+    @products = @products.page(params[:page]).per(20)
   end
 
   def new
@@ -48,6 +54,6 @@ class Admin::ProductsController < ApplicationController
   end
   def product_params
     params.require(:product).permit(
-      :product_name, :description, :stock_quantity, :category_id, product_prices_attributes: [ :id, :price ])
+      :product_name, :description, :stock_quantity, :category_id, :on_sale, product_prices_attributes: [ :id, :price ])
   end
 end

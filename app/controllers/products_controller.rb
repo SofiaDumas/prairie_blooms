@@ -1,9 +1,14 @@
 class ProductsController < ApplicationController
-  # before_action :set_product, only: [ :show ]
-
   # GET /products or /products.json
   def index
-    @products = Product.page(params[:page]).per(20)
+    @products = Product.all
+
+    @products = @products.where(on_sale: true) if params[:on_sale] == "true"
+    @products = @products.where("created_at >= ?", 2.hours.ago) if params[:new] == "true"
+    @products = @products.where("product_name LIKE ?", "%#{params[:query]}%").order(:product_name)
+    @products = @products.order(updated_at: :desc) if params[:recently_updated] == "true"
+
+    @products = @products.page(params[:page]).per(20)
   end
 
   # GET /products/1 or /products/1.json

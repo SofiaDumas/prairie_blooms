@@ -1,6 +1,10 @@
 <h1>Administration Dashboard</h1>
 
-<p><%=link_to "Manage Products", admin_products_path, class: "btn btn-primary"%></p>
+<div style="display: flex; gap: 10px;">
+  <%= link_to "Manage Products", admin_products_path, class: "btn btn-primary" %>
+  <%= link_to "View All Products (User List)", products_path, class: "btn btn-primary" %>
+</div>
+<h2>Summary of movements:</h2>
 <p>Total Sales: $<%= number_with_precision(@total_sales, precision: 2)%></p>
 <p>Total Orders: <%= @total_orders %></p>
 <p>Total Users: <%= @total_users%></p>

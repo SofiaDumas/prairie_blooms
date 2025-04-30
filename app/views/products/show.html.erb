@@ -4,8 +4,9 @@
 
 <div>
   <%= button_to "Add to Cart", add_to_cart_path(@product.id), method: :post, class: "btn btn-success" %>
-  <%= link_to "Edit this product", edit_product_path(@product) %> |
+  <% if current_user&.admin? %>
+    <%= link_to "Edit this product", edit_admin_product_path(@product) %> |
+    <%= button_to "Delete this product", admin_product_path(@product), method: :delete, data: { confirm: "Are you sure?" } %>
+  <% end %>
   <%= link_to "Back to products", products_path %>
-
-  <%= button_to "Delete this product", @product, method: :delete %>
 </div>
