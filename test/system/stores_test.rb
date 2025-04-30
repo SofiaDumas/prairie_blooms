@@ -1,17 +1,17 @@
 require "application_system_test_case"
 
-class StoresTest < ApplicationSystemTestCase
+class StoreTest < ApplicationSystemTestCase
   setup do
     @store = stores(:one)
   end
 
   test "visiting the index" do
-    visit stores_url
-    assert_selector "h1", text: "Stores"
+    visit store_url
+    assert_selector "h1", text: "Store"
   end
 
   test "should create store" do
-    visit stores_url
+    visit store_url
     click_on "New store"
 
     fill_in "Contact email", with: @store.contact_email

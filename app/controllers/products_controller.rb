@@ -1,62 +1,20 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[ show edit update destroy ]
-
   # GET /products or /products.json
   def index
     @products = Product.all
+
+    @products = @products.where(on_sale: true) if params[:on_sale] == "true"
+    @products = @products.where("created_at >= ?", 2.hours.ago) if params[:new] == "true"
+    @products = @products.where("product_name LIKE ?", "%#{params[:query]}%").order(:product_name)
+    @products = @products.order(updated_at: :desc) if params[:recently_updated] == "true"
+
+    @products = @products.page(params[:page]).per(20)
   end
 
   # GET /products/1 or /products/1.json
   def show
     @product = Product.find(params[:id])
     @order_item = OrderItem.new
-  end
-
-  # GET /products/new
-  def new
-    @product = Product.new
-  end
-
-  # GET /products/1/edit
-  def edit
-  end
-
-  # POST /products or /products.json
-  def create
-    @product = Product.new(product_params)
-
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: "Product was successfully created." }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /products/1 or /products/1.json
-  def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: "Product was successfully updated." }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /products/1 or /products/1.json
-  def destroy
-    @product.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to products_path, status: :see_other, notice: "Product was successfully destroyed." }
-      format.json { head :no_content }
-    end
   end
 
   private
@@ -67,6 +25,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.expect(product: [ :product_name, :description, :stock_quantity, :category_id ])
+      params.require(:product).permit(:product_name, :description, :stock_quantity, :category_id)
     end
 end

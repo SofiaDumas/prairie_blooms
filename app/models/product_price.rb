@@ -3,3 +3,9 @@ class ProductPrice < ApplicationRecord
   validates :effective_date, presence: true
   belongs_to :product
 end
+def product_params
+  params.require(:product).permit(
+    :product_name, :description, :stock_quantity, :category_id,
+    product_prices_attributes: [ :price, :effective_date ]
+  )
+end

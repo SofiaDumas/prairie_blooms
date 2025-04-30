@@ -1,13 +1,14 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: %i[ show edit update destroy ]
-
+  before_action :set_order, only: [ :show, :edit, :update, :destroy ]
+  before_action :authenticate_user!
   # GET /orders or /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.where(user: current_user || User.first).includes(:order_items, :products)
   end
 
   # GET /orders/1 or /orders/1.json
   def show
+    @product = Product.find_by(id: params[:id])
   end
 
   # GET /orders/new
@@ -21,7 +22,7 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
-    @order = Order.new(order_params)
+    @order = current_user.orders.build(order_params.except(:user_id))
 
     respond_to do |format|
       if @order.save
@@ -65,6 +66,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.expect(order: [ :user_id, :status, :total_amount ])
+      params.require(:order).permit(:user_id, :status, :total_amount, :address)
     end
 end

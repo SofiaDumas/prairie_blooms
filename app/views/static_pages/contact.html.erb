@@ -1,0 +1,8 @@
+<h1>Contact Us</h1>
+<p><%= @contact_content.content.html_safe%></p>
+<% if current_user&.admin%>
+  <%= link_to "Edit Contact page", admin_edit_contact_path, class: "btn btn-warning"%>
+<% end%>
+<p>
+  <%= link_to "Back to Home", root_path, class: "btn btn-secondary"%>
+</p>

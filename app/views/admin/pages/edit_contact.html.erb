@@ -1,0 +1,6 @@
+<h1>Edit Contact Page</h1>
+<%= form_with url: admin_update_contact_path, method: :patch do |f|%>
+  <%= f.label :content %><br>
+  <%= f.text_area :content, rows: 50, cols: 100, value: @contact_content.content%> <br>
+  <%= f.submit "Updated", class: "btn btn-primary"%>
+<% end %>

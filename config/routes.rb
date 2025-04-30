@@ -1,22 +1,40 @@
 Rails.application.routes.draw do
-  get "cart/show"
-  get "cart/add_item"
-  get "cart/remove_item"
-  get "cart/checkout"
-  get "cart", to: "cart#show", as: "cart"
-  post "/cart/add/:product_id", to: "cart#add_item", as: "add_to_cart"
-  delete "cart/remove/:product_id", to: "cart#remove_item", as: "remove_from_cart"
-  post "cart/checkout", to: "cart#checkout", as: "checkout"
-
-
-  resources :stores
+  devise_for :users
+  resource :store, only: [ :edit, :update, :show ]
   resources :payments
   resources :product_prices
   resources :order_items
   resources :orders
-  resources :products
+  resources :products, only: [ :index, :show ]
   resources :categories
-  resources :users
+
+  get "/cart", to: "cart#show", as: "cart"
+  post "/cart/add/:product_id", to: "cart#add_item", as: "add_to_cart"
+  post "/cart/edit/:product_id", to: "cart#edit_quantity", as: "edit_cart_item"
+  post "/cart/update_quantity/:product_id", to: "cart#update_quantity", as: "update_cart_quantity"
+  delete "/cart/remove/:product_id", to: "cart#remove_item", as: "remove_from_cart"
+  post "/cart/checkout", to: "cart#checkout", as: "checkout"
+  get "/about", to: "static_pages#about"
+  get "/contact", to: "static_pages#contact"
+  # get "/category/:id", to: "categorys#show", as: "category"
+
+
+  root "store#index"
+
+  namespace :admin do
+    get "/products/index"
+    get "/products/new"
+    get "/products/edit"
+    get "/products/show"
+    get "/dashboard", to: "dashboard#index"
+    get "/edit_about", to: "pages#edit_about"
+    patch "/update_about", to: "pages#update_about"
+    get "/edit_contact", to: "pages#edit_contact"
+    patch "/update_contact", to: "pages#update_contact"
+    resources :orders, only: [ :index, :show, :update ]
+    resources :products
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
