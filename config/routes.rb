@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :product_prices
   resources :order_items
   resources :orders
-  resources :products
+  resources :products, only: [ :index, :show ]
   resources :categories
 
   get "/cart", to: "cart#show", as: "cart"

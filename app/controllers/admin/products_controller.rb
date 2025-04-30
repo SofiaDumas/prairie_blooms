@@ -8,16 +8,27 @@ class Admin::ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @product.product_prices.build
   end
 
   def create
-    @products = Product.new(product_params)
-    redirect_to admin_products_path, notice: "Product was successfully created."
+    @product = Product.new(product_params)
+    @product.product_prices.each do |pp|
+      pp.effective_date ||= Date.today
+    end
+    if @product.save
+      redirect_to admin_products_path, notice: "Product was successfully created."
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def update
-    @prodcuts = Product.update(product_params)
-    redirect_to admin_products_path, notice: "Product was successfully updated."
+    if @product.update(product_params)
+      redirect_to admin_products_path, notice: "Product was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -36,6 +47,7 @@ class Admin::ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
   def product_params
-    params.require(:product).permit(:product_name, :description, :stock_quantity, :price)
+    params.require(:product).permit(
+      :product_name, :description, :stock_quantity, :category_id, product_prices_attributes: [ :id, :price ])
   end
 end

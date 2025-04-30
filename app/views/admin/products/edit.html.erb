@@ -2,11 +2,11 @@
 
 <h1>Editing product</h1>
 
-<%= render "products/form", product: @product %>
+<%= render "form", product: @product %>
 
 <br>
 
 <div>
   <%= link_to "Show this product", @product %> |
-  <%= link_to "Back to List of Products - Admin Access Only", admin_product_path %>
+  <%= link_to "Back to List of Products - Admin Access Only", admin_products_path %>
 </div>

@@ -5,4 +5,5 @@ class Product < ApplicationRecord
   belongs_to :category
   has_many :order_items
   has_many :product_prices
+  accepts_nested_attributes_for :product_prices
 end
