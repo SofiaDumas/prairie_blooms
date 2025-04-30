@@ -1,5 +1,5 @@
 class ProductPricesController < ApplicationController
-  before_action :set_product_price, only: %i[ show edit update destroy ]
+  before_action :set_product_price, only: [ :show, :edit, :update, :destroy ]
 
   # GET /product_prices or /product_prices.json
   def index

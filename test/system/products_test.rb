@@ -40,7 +40,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test "should destroy Product" do
     visit product_url(@product)
-    click_on "Destroy this product", match: :first
+    click_on "Delete this product", match: :first
 
     assert_text "Product was successfully destroyed"
   end

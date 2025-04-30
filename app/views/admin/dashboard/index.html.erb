@@ -1,0 +1,24 @@
+<h1>Administration Dashboard</h1>
+
+<p><%=link_to "Manage Products", admin_products_path, class: "btn btn-primary"%></p>
+<p>Total Sales: $<%= number_with_precision(@total_sales, precision: 2)%></p>
+<p>Total Orders: <%= @total_orders %></p>
+<p>Total Users: <%= @total_users%></p>
+
+<h2>Recent Orders</h2>
+<ul>
+  <% @orders.each do |order|%>
+    <li>
+      Order #<%= order.id%> - <%= order.user.name%> - $<%= number_with_precision(order.total_amount, precision:2)%> - <%= order.status%>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Low Stock Products</h2>
+<ul>
+  <% @low_stock_products.each do |product|%>
+    <li>
+      <%= product.product_name%> - <%= product.stock_quantity%> in stock
+    </li>
+  <% end %>
+</ul>

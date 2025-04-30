@@ -38,7 +38,7 @@ class ProductPricesTest < ApplicationSystemTestCase
 
   test "should destroy Product price" do
     visit product_price_url(@product_price)
-    click_on "Destroy this product price", match: :first
+    click_on "Delete this product price", match: :first
 
     assert_text "Product price was successfully destroyed"
   end

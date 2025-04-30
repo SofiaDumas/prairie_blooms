@@ -1,0 +1,31 @@
+<h1>Administration - List of Products</h1>
+
+<%= link_to "New Product", new_admin_product_path, class: "btn btn-primary"%>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Stock Quantity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product|%>
+      <tr>
+        <td><%= product.product_name%></td>
+        <td><%= product.description%></td>
+        <td><%= product.stock_quantity%></td>
+        <td>
+          <%= link_to "Edit", edit_admin_product_path(product), class: "btn btn-warning" %>
+          <%= button_to "Delete", admin_product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+
+<%# Pagination controls to navigate between pages of the products %>
+<%= paginate @products%>

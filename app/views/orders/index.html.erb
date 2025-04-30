@@ -2,15 +2,27 @@
 
 <% content_for :title, "Orders" %>
 
-<h1>Orders</h1>
+<h1>Your Orders</h1>
 
-<div id="orders">
-  <% @orders.each do |order| %>
-    <%= render order %>
-    <p>
-      <%= link_to "Show this order", order %>
-    </p>
+  <% if @orders.any? %>
+    <% @orders.each do |order| %>
+      <div id="orders">
+        <h3>Order #<%= order.id %> - Status: <%= order.status%></h3>
+        <p>Total: $<%= number_with_precision(order.total_amount, precision: 2)%></p>
+        <p>Address: <%= order.address%></p>
+        <ul>
+          <% order.order_items.each do |item|%>
+            <li>
+              <%= item.product.product_name%> x <%= item.quantity%>
+              @ $<%= number_with_precision(item.price, precision: 2) %> each
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <hr>
+    <% end %>
+  <% else %>
+    <p>You have no orders yet.</p>
   <% end %>
-</div>
-
+<%= link_to "Back to products", products_path %>
 <%= link_to "New order", new_order_path %>

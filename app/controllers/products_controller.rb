@@ -1,9 +1,9 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :set_product, only: [ :show, :edit, :update, :destroy ]
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    @products = Product.page(params[:page]).per(10)
   end
 
   # GET /products/1 or /products/1.json
@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
     @product.destroy!
 
     respond_to do |format|
-      format.html { redirect_to products_path, status: :see_other, notice: "Product was successfully destroyed." }
+      format.html { redirect_to products_path, status: :see_other, notice: "Product was successfully deleted." }
       format.json { head :no_content }
     end
   end
@@ -67,6 +67,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.expect(product: [ :product_name, :description, :stock_quantity, :category_id ])
+      params.require(:product).permit(:product_name, :description, :stock_quantity, :category_id)
     end
 end
