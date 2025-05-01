@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   root "store#index"
 
   namespace :admin do
+    get "orders/index"
+    get "orders/mark_as_shipped"
     get "/products/index"
     get "/products/new"
     get "/products/edit"
@@ -33,8 +35,9 @@ Rails.application.routes.draw do
     patch "/update_about", to: "pages#update_about"
     get "/edit_contact", to: "pages#edit_contact"
     patch "/update_contact", to: "pages#update_contact"
-    resources :orders, only: [ :index, :show, :update ]
-    resources :products
+    resources :orders, only: [ :index, :show, :update ] do
+      patch :mark_as_shipped, on: :member
+    end
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

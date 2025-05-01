@@ -6,4 +6,5 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
   has_many :payments, dependent: :destroy
+  enum status: { new: 0, paid: 1, shipped: 2 }
 end
