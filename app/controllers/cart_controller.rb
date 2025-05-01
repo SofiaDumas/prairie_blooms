@@ -61,11 +61,27 @@ class CartController < ApplicationController
       total += quantity * price
     end
     order.total_amount = total
-    order.status = "paid"
     if order.save
-      order.payments.create(payment_method: "credit_card", amount: total, payment_status: "completed")
       session[:cart] = {}
-      redirect_to orders_path, notice: "Order was successfully created."
+      session = Stripe::Checkout::Session.create(
+        payment_method_types: [ "card" ],
+        line_items: order.order_items.map do |item|
+          {
+            price_data: {
+              currency: "cad",
+              unit_amount: (item.price * 100).to_i,
+              product_data: {
+                name: item.product.product_name
+              }
+            },
+            quantity: item.quantity
+          }
+        end,
+        mode: "payment",
+        success_url: "#{root_url}orders/#{order.id}?success=true",
+        cancel_url: "#{root_url}cart?canceled=true"
+      )
+      redirect_to session.url, allow_other_host: true
     else
       redirect_to cart_path, alert: "Failed to create order. Please try again."
     end

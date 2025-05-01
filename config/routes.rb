@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :payments
   resources :product_prices
   resources :order_items
-  resources :orders
+  resources :orders do
+    post "checkout", on: :member
+  end
   resources :products, only: [ :index, :show ]
   resources :categories
 
@@ -13,7 +15,7 @@ Rails.application.routes.draw do
   post "/cart/edit/:product_id", to: "cart#edit_quantity", as: "edit_cart_item"
   post "/cart/update_quantity/:product_id", to: "cart#update_quantity", as: "update_cart_quantity"
   delete "/cart/remove/:product_id", to: "cart#remove_item", as: "remove_from_cart"
-  post "/cart/checkout", to: "cart#checkout", as: "checkout"
+  post "/cart/checkout", to: "cart#checkout", as: "checkout_cart"
   get "/about", to: "static_pages#about"
   get "/contact", to: "static_pages#contact"
   # get "/category/:id", to: "categorys#show", as: "category"

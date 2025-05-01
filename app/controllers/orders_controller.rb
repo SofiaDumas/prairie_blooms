@@ -8,7 +8,11 @@ class OrdersController < ApplicationController
 
   # GET /orders/1 or /orders/1.json
   def show
-    @product = Product.find_by(id: params[:id])
+    @order = Order.find(params[:id])
+    if params[:success] && @order.status != "paid"
+      @order.update(status: "paid")
+      @order.payments.create(payment_method: "credit_card", amount: @order.total_amount, payment_status: "completed")
+    end
   end
 
   # GET /orders/new
