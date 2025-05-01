@@ -1,0 +1,31 @@
+<h1>All Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order|%>
+      <tr>
+        <td><%= order.id%></td>
+        <td><%= order.user.name%></td>
+        <td>$<%= number_to_currency(order.total_amount)%></td>
+        <td><%= order.status.humanize.capitalize %></td>
+        <td>
+          <% if order.paid? %>
+            <%= button_to "Mark as shipped", mark_as_shipped_admin_order_path(order), method: :patch, data: {confirm:
+            "Are you sure"}%>
+          <% else %>
+            <em>-<em>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
