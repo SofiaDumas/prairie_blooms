@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
 
     if params[:query].present?
       query = "%#{params[:query]}%"
-      @products = @products.where("product_name ILIKE :query OR description ILIKE :query", query: query)
+      @products = @products.where("product_name LIKE :query OR description LIKE :query", query: query)
     end
     if params[:category_id].present?
       @products = @products.where(category_id: params[:category_id])

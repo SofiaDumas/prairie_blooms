@@ -6,7 +6,7 @@
 <%= form_with url: products_path, method: :get, local: true do |form|%>
   <div>
     <%= label_tag :query, "Search by keyword"%>
-    <%= form.text_field :search%>
+    <%= form.text_field :query, value: params[:query]%>
   </div>
   <div>
     <%= form.label :category_id, "Filter by category:"%>
@@ -29,11 +29,6 @@
   <%= check_box_tag :recently_updated, "true", params[:recently_updated] == "true" %>
 
   <%= submit_tag "Filter", class: "btn btn-primary" %>
-  <div>
-    <%= label_tag :query, "Search Products"%>
-    <%= text_field_tag :query, params[:query], placeholder: "Enter a key word"%>
-    <%= submit_tag "Search"%>
-  </div>
 <% end %>
 <h1>Products</h1>
 
