@@ -1,0 +1,4 @@
+<li>
+  Order #<%= order.id %> - <%= order.user.name %> - $<%= number_with_precision(order.total_amount, precision:2) %> - <%= order.status.humanize.capitalize %>
+</li>
+
