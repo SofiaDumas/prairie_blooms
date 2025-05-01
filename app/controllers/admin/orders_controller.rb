@@ -1,6 +1,6 @@
 class Admin::OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_order, only [:mark_as_shipped]
+  before_action :set_order, only: [ :mark_as_shipped ]
   def index
     @orders = Order.all.includes(:order_items)
   end
@@ -14,8 +14,12 @@ class Admin::OrdersController < ApplicationController
     end
   end
 
+  def show
+    @order = Order.find(params[:id])
+  end
+
   private
   def set_order
-    @order = Order.find{params[:id]}
+    @order = Order.find(params[:id])
   end
 end

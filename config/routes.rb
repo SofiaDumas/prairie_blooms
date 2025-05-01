@@ -24,17 +24,18 @@ Rails.application.routes.draw do
   root "store#index"
 
   namespace :admin do
-    get "orders/index"
-    get "orders/mark_as_shipped"
-    get "/products/index"
-    get "/products/new"
-    get "/products/edit"
-    get "/products/show"
+    # get "orders/index"
+    # get "orders/mark_as_shipped"
+    # get "/products/index"
+    # get "/products/new"
+    # get "/products/edit"
+    # get "/products/show"
     get "/dashboard", to: "dashboard#index"
     get "/edit_about", to: "pages#edit_about"
     patch "/update_about", to: "pages#update_about"
     get "/edit_contact", to: "pages#edit_contact"
     patch "/update_contact", to: "pages#update_contact"
+    resources :products
     resources :orders, only: [ :index, :show, :update ] do
       patch :mark_as_shipped, on: :member
     end
