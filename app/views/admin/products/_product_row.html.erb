@@ -1,0 +1,15 @@
+<tr>
+  <td><%= product.product_name%></td>
+  <td><%= product.description%></td>
+  <td>$<%= product.product_prices.order(effective_date: :desc).first&.price || "N/A" %></td>
+  <td><%= product.stock_quantity%></td>
+  <td><%= if product.on_sale?
+            "Yes"
+          else
+            "No"
+          end%></td>
+  <td>
+    <%= link_to "Edit", edit_admin_product_path(product), class: "btn btn-warning" %>
+    <%= button_to "Delete", admin_product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  </td>
+</tr>
