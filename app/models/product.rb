@@ -6,4 +6,5 @@ class Product < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :product_prices, dependent: :destroy
   accepts_nested_attributes_for :product_prices
+  has_one_attached :image
 end

@@ -8,7 +8,7 @@
 
 <div id="products">
   <% @products.each do |product| %>
-    <%= render product %>
+    <%= render partial: "product", locals: {product: product} %>
     <p>
       <%= link_to "Show this product", product %>
       <%= button_to "Add to Cart", add_to_cart_path(product.id), method: :post, class: "btn btn-success" %>
