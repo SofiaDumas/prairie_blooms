@@ -21,6 +21,11 @@ Rails.application.routes.draw do
   # get "/category/:id", to: "categorys#show", as: "category"
 
 
+  Rails.application.routes.default_url_options[:host] = "localhost:3000" if Rails.env.development?
+  #
+  # Enable Active Storage routes:
+  mount ActiveStorage::Engine => "/rails/active_storage"
+
   root "store#index"
 
   namespace :admin do

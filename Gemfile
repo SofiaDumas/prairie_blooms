@@ -46,7 +46,12 @@ gem "thruster", require: false
 # This gem enables pagination support for Active Record models.
 gem "kaminari"
 
+# Gem for method of payment
 gem "stripe", "~> 15.1"
+
+# Gem to resize the image
+gem "mini_magick"
+
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -69,3 +74,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "image_processing", "~> 1.14"
