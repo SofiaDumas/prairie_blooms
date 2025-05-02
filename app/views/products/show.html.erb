@@ -2,6 +2,7 @@
 
 <%= render @product %>
 
+
 <div>
   <%= button_to "Add to Cart", add_to_cart_path(@product.id), method: :post, class: "btn btn-success" %>
   <% if current_user&.admin? %>
