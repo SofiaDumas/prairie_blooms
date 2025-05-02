@@ -4,6 +4,7 @@
     <%= label_tag :query, "Search by keyword"%>
     <%= form.text_field :query, value: params[:query]%>
   </div>
+  <br>
   <div>
     <%= form.label :category_id, "Filter by category:"%>
     <%= form.collection_select :category_id, Category.all, :id, :category_name, include_blank: "All Categories"%>
