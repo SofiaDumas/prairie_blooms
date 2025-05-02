@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_02_034715) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_02_131604) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_02_034715) do
     t.string "category_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_name"], name: "index_categories_on_category_name", unique: true
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -102,6 +103,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_02_034715) do
     t.boolean "on_sale"
     t.boolean "new"
     t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["product_name"], name: "index_products_on_product_name", unique: true
   end
 
   create_table "stores", force: :cascade do |t|

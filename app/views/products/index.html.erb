@@ -16,11 +16,12 @@
   <% end %>
 </div>
 
-<% if current_user&.admin? %>
-  <%= link_to "New Product", new_admin_product_path, class: "btn btn-primary" %>
-<% end %>
-
-
+<div id="new_product">
+  <% if current_user&.admin? %>
+    <%= link_to "New Product", new_admin_product_path, class: "btn btn-primary" %>
+  <% end %>
+</div>
+<br>
 
 <%# Pagination controls to navigate between pages of the products %>
 <%= paginate @products%>

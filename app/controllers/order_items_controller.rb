@@ -1,5 +1,5 @@
 class OrderItemsController < ApplicationController
-  before_action :set_order_item, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_order_item, only: %i[show edit update destroy]
 
   # GET /order_items or /order_items.json
   def index
@@ -7,8 +7,7 @@ class OrderItemsController < ApplicationController
   end
 
   # GET /order_items/1 or /order_items/1.json
-  def show
-  end
+  def show; end
 
   # GET /order_items/new
   def new
@@ -16,8 +15,7 @@ class OrderItemsController < ApplicationController
   end
 
   # GET /order_items/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /order_items or /order_items.json
   def create
@@ -52,19 +50,23 @@ class OrderItemsController < ApplicationController
     @order_item.destroy!
 
     respond_to do |format|
-      format.html { redirect_to order_items_path, status: :see_other, notice: "Order item was successfully destroyed." }
+      format.html do
+        redirect_to order_items_path, status: :see_other,
+                                      notice: "Order item was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order_item
-      @order_item = OrderItem.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def order_item_params
-      params.expect(order_item: [ :order_id, :product_id, :quantity ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order_item
+    @order_item = OrderItem.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def order_item_params
+    params.expect(order_item: %i[order_id product_id quantity])
+  end
 end

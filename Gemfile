@@ -76,3 +76,7 @@ group :test do
 end
 
 gem "image_processing", "~> 1.14"
+
+gem "google-cloud-storage", require: false
+
+gem "dotenv-rails", groups: [ :development, :test ]
