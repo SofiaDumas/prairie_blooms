@@ -6,7 +6,7 @@
 
   <p>
     <strong>Price:</strong>
-    <%= product_price.price %>
+    $<%= product.product_prices.last&.price || "N/A" %>
   </p>
 
   <p>

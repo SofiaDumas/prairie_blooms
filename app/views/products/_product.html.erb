@@ -19,4 +19,8 @@
     <%= product.category_id %>
   </p>
 
+  <p>
+    <strong>Price:</strong>
+    $<%= product.product_prices.order(effective_date: :desc).first&.price || "N/A" %>
+  </p>
 </div>

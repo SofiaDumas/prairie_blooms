@@ -8,8 +8,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }
   validates :street, :city, :postal_code, :province, presence: true
   validates :postal_code,
-            format: { with:    /\A[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]
-                            ?\d[ABCEGHJ-NPRSTV-Z]\d\z/i,
+            format: { with:    /\A[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d\z/i, # rubocop:disable Layout/LineLength
                       message: "must be a valid postal code" }
   has_many :orders, dependent: :destroy
   normalizes :email_address, with: ->(e) { e.strip.downcase }

@@ -54,7 +54,7 @@ class CartController < ApplicationController
     @user = current_user || User.first
     @order = build_order(cart)
 
-    if order.save
+    if @order.save
       session[:cart] = {}
       stripe_session = create_strip_session(@order)
       redirect_to stripe_session.url, allow_other_host: true
@@ -67,7 +67,7 @@ end
 private
 
 def build_order(cart)
-  order = iniialize_order
+  order = initialize_order
   total = 0
   cart.each do |product_id, quantity|
     product = Product.find_by(id: product_id)
