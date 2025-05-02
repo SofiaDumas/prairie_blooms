@@ -1,5 +1,5 @@
 class StoreController < ApplicationController
-  before_action :check_admin, only: [ :show, :edit, :update ]
+  before_action :check_admin, only: %i[show edit update]
 
   # GET /store or /store.json
   def index
@@ -28,12 +28,12 @@ class StoreController < ApplicationController
 
   private
 
-    # Only allow a list of trusted parameters through.
-    def store_params
-      params.require(:store).permit(:name, :description, :logo_url, :contact_email, :phone)
-    end
+  # Only allow a list of trusted parameters through.
+  def store_params
+    params.require(:store).permit(:name, :description, :logo_url, :contact_email, :phone)
+  end
 
-    def check_admin
-      redirect_to root_path unless current_user.admin?
-    end
+  def check_admin
+    redirect_to root_path unless current_user.admin?
+  end
 end

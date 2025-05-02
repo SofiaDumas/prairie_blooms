@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  before_action :set_payment, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_payment, only: %i[show edit update destroy]
 
   # GET /payments or /payments.json
   def index
@@ -7,8 +7,7 @@ class PaymentsController < ApplicationController
   end
 
   # GET /payments/1 or /payments/1.json
-  def show
-  end
+  def show; end
 
   # GET /payments/new
   def new
@@ -16,8 +15,7 @@ class PaymentsController < ApplicationController
   end
 
   # GET /payments/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /payments or /payments.json
   def create
@@ -52,19 +50,22 @@ class PaymentsController < ApplicationController
     @payment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to payments_path, status: :see_other, notice: "Payment was successfully destroyed." }
+      format.html do
+        redirect_to payments_path, status: :see_other, notice: "Payment was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_payment
-      @payment = Payment.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def payment_params
-      params.expect(payment: [ :order_id, :payment_method, :total_amount_id, :payment_status ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_payment
+    @payment = Payment.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def payment_params
+    params.expect(payment: %i[order_id payment_method total_amount_id payment_status])
+  end
 end

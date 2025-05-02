@@ -7,7 +7,10 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
   validates :street, :city, :postal_code, :province, presence: true
-  validates :postal_code, format: { with: /\A[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d\z/i, message: "must be a valid postal code" }
+  validates :postal_code,
+            format: { with:    /\A[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]
+                            ?\d[ABCEGHJ-NPRSTV-Z]\d\z/i,
+                      message: "must be a valid postal code" }
   has_many :orders, dependent: :destroy
   normalizes :email_address, with: ->(e) { e.strip.downcase }
   def full_address
