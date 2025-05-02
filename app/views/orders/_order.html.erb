@@ -15,3 +15,18 @@
   </p>
 
 </div>
+
+<div id="orders">
+  <h3>Order #<%= order.id %> - Status: <%= order.status%></h3>
+  <p>Total: $<%= number_with_precision(order.total_amount, precision: 2)%></p>
+  <p>Address: <%= order.address%></p>
+  <ul>
+    <% order.order_items.each do |item|%>
+      <li>
+        <%= item.product.product_name%> x <%= item.quantity%>
+        @ $<%= number_with_precision(item.price, precision: 2) %> each
+      </li>
+    <% end %>
+  </ul>
+</div>
+<hr>

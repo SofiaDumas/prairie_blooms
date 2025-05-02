@@ -1,14 +1,4 @@
 <h1>New Product</h1>
-<% if @product.errors.any? %>
-  <div class="alert alert-danger">
-    <h2><%= pluralize(@product.errors.count, "error") %> prevented this product from being saved:</h2>
-    <ul>
-      <% @product.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
 
 <%= render "form", product: @product %>
 

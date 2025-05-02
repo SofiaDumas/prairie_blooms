@@ -12,8 +12,8 @@ class ProductsController < ApplicationController
       @products = @products.where(category_id: params[:category_id])
     end
     @products = @products.where(on_sale: true) if params[:on_sale] == "true"
-    @products = @products.where("created_at >= ?", 2.hours.ago) if params[:new] == "true"
-    @products = @products.order(updated_at: :desc) if params[:recently_updated] == "true"
+    @products = @products.where("created_at >= ?", 3.days.ago) if params[:new] == "true"
+    @products = @products.where("updated_at >= ?", 3.days.ago) if params[:recently_updated] == "true"
 
     @products = @products.page(params[:page]).per(20)
   end
