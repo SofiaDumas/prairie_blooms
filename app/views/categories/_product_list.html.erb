@@ -1,0 +1,10 @@
+<h2>List of products under this category:</h2>
+<ul>
+  <%@products.each do |product|%>
+    <li>
+      <%=product.product_name%> - <%=product.description%><br>
+      Price: $<%=product.product_prices.last&.price%>
+      <%= button_to "Add to Cart", add_to_cart_path(product.id), method: :post, class: "btn btn-success" %>
+    </li>
+  <% end %>
+</ul>
