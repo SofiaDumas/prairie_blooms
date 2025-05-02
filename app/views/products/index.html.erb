@@ -2,34 +2,8 @@
 
 <% content_for :title, "Products" %>
 
-<h2>Search Products</h2>
-<%= form_with url: products_path, method: :get, local: true do |form|%>
-  <div>
-    <%= label_tag :query, "Search by keyword"%>
-    <%= form.text_field :query, value: params[:query]%>
-  </div>
-  <div>
-    <%= form.label :category_id, "Filter by category:"%>
-    <%= form.collection_select :category_id, Category.all, :id, :category_name, include_blank: "All Categories"%>
-  </div>
-  <div>
-    <%= submit_tag "Search"%>
-  </div>
-<%end%>
+<%= render "product_filter"%>
 
-<h2>Filter Products</h2>
-<%= form_with url: products_path, method: :get, local: true do %>
-  <%= label_tag :on_sale, "On Sale" %>
-  <%= check_box_tag :on_sale, "true", params[:on_sale] == "true" %>
-
-  <%= label_tag :new, "New" %>
-  <%= check_box_tag :new, "true", params[:new] == "true" %>
-
-  <%= label_tag :recently_updated, "Recently Updated" %>
-  <%= check_box_tag :recently_updated, "true", params[:recently_updated] == "true" %>
-
-  <%= submit_tag "Filter", class: "btn btn-primary" %>
-<% end %>
 <h1>Products</h1>
 
 <div id="products">
