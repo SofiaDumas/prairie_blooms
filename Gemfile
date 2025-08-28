@@ -47,7 +47,7 @@ gem "thruster", require: false
 gem "kaminari"
 
 # Gem for method of payment
-gem "stripe", "~> 15.1"
+gem "stripe", "~> 15.5"
 
 # Gem to resize the image
 gem "mini_magick"
